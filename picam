@@ -1,4 +1,4 @@
-! /bin/sh
+#!/bin/bash
 ### BEGIN INIT INFO
 # Provides: picam
 # Required-Start: $remote_fs $syslog
@@ -15,16 +15,17 @@ case "$1" in
 start)
     echo "Starting picam"
     /home/pi/raspberry-pi-cam/picam.py 2>&1 &
-    echo $! > ${picam_pid}
+    echo $! > "${picam_pid}"
     ;;
 
 stop)
     echo "Stopping picam"
-    kill `echo ${picam_pid}`
+    kill `echo "${picam_pid}"`
+    rm -vf "${picam_pid}"
     ;;
 
 status)
-    ps -p `echo ${picam_pid}`
+    ps -p `cat "${picam_pid}"`
     ;;
 
 *)
