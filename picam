@@ -13,19 +13,23 @@ picam_pid='/var/run/picam.pid'
 
 case "$1" in
 start)
-    echo "Starting picam"
+    echo "Starting picam service"
     /home/pi/raspberry-pi-cam/picam.py 2>&1 &
     echo $! > "${picam_pid}"
     ;;
 
 stop)
-    echo "Stopping picam"
+    echo "Stopping picam service"
     kill `echo "${picam_pid}"`
     rm -vf "${picam_pid}"
     ;;
 
 status)
-    ps -p `cat "${picam_pid}"`
+    if [ -f "${picam_pid}" ]; then
+        ps -p `cat "${picam_pid}"`
+    else
+        echo "picam service not running..."
+    fi
     ;;
 
 *)
