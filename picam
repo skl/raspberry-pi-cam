@@ -14,7 +14,7 @@ picam_pid='/var/run/picam.pid'
 case "$1" in
 start)
     echo "Starting picam"
-    /home/pi/picam.py 2>&1 &
+    /home/pi/raspberry-pi-cam/picam.py 2>&1 &
     echo $! > ${picam_pid}
     ;;
 
