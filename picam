@@ -25,6 +25,7 @@ stop)
 
 status)
     ps -p `echo ${picam_pid}`
+    ;;
 
 *)
     echo "Usage: $0 {start|stop|status}"
