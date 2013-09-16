@@ -20,7 +20,7 @@ start)
 
 stop)
     echo "Stopping picam service"
-    kill `echo "${picam_pid}"`
+    kill `cat "${picam_pid}"`
     rm -vf "${picam_pid}"
     ;;
 
