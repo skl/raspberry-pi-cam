@@ -38,15 +38,15 @@ from email.mime.multipart import MIMEMultipart
 #
 # filenamePrefix:
 # String that prefixes the file name for easier identification of files.
-threshold = 10
+threshold = 18
 sensitivity = 180
 forceCapture = True
 forceCaptureTime = 60 * 60  # Once an hour
 filepath = "/mnt/picam"
 filenamePrefix = "capture"
 # File photo size settings
-saveWidth = 1280
-saveHeight = 960
+saveWidth = 2592
+saveHeight = 1944
 diskSpaceToReserve = 40 * 1024 * 1024  # Keep 40 mb free on disk
 
 # email settings
@@ -57,10 +57,10 @@ emailSubject = 'MOTION DETECTED!!!'
 
 
 # Send an email with a picture attached
-def sendEmail(emailTo, filename):
+def sendEmail(emailTo, filename, additionalSubject):
     # Create the container (outer) email message
     msg = MIMEMultipart()
-    msg['Subject'] = emailSubject
+    msg['Subject'] = emailSubject + additionalSubject
     msg['From'] = emailFrom
     msg['To'] = emailTo
 
@@ -95,9 +95,9 @@ def captureTestImage():
 def saveImage(width, height, diskSpaceToReserve):
     keepDiskSpaceFree(diskSpaceToReserve)
     time = datetime.now()
-    filename = filepath + "/" + filenamePrefix + "-%04d%02d%02d-%02d%02d%02d.jpg" % ( time.year, time.month, time.day, time.hour, time.minute, time.second)
-    subprocess.call("raspistill -mm matrix -hf -vf -w 1296 -h 972 -t 0 -e jpg -q 15 -o %s" % filename, shell=True)
-    sendEmail(emailTo, filename)
+    filename = filepath + "/" + filenamePrefix + "-%04d%02d%02d-%02d%02d%02d.jpg" % (time.year, time.month, time.day, time.hour, time.minute, time.second)
+    subprocess.call("raspistill -mm matrix -w %d -h %d -t 0 -e jpg -q 100 -o %s" % width, height, filename, shell=True)
+    sendEmail(emailTo, filename, " by %s on %02d/%02d/%04d at %02d00 hours" % (os.uname()[1], time.day, time.month, time.year, time.hour))
     print "Captured %s" % filename
 
 
