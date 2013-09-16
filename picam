@@ -29,11 +29,17 @@ status)
         ps -p `cat "${picam_pid}"`
     else
         echo "picam service not running..."
+        exit 1
     fi
     ;;
 
+restart)
+    $0 stop
+    $0 start
+    ;;
+
 *)
-    echo "Usage: $0 {start|stop|status}"
+    echo "Usage: $0 {start|stop|restart|status}"
     exit 1
     ;;
 esac

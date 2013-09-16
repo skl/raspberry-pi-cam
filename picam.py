@@ -96,7 +96,7 @@ def saveImage(width, height, diskSpaceToReserve):
     keepDiskSpaceFree(diskSpaceToReserve)
     time = datetime.now()
     filename = filepath + "/" + filenamePrefix + "-%04d%02d%02d-%02d%02d%02d.jpg" % (time.year, time.month, time.day, time.hour, time.minute, time.second)
-    subprocess.call("raspistill -mm matrix -w %d -h %d -t 0 -e jpg -q 100 -o %s" % width, height, filename, shell=True)
+    subprocess.call("raspistill -mm matrix -w %d -h %d -t 0 -e jpg -q 100 -o %s" % (width, height, filename), shell=True)
     sendEmail(emailTo, filename, " by %s on %02d/%02d/%04d at %02d00 hours" % (os.uname()[1], time.day, time.month, time.year, time.hour))
     print "Captured %s" % filename
 
