@@ -46,7 +46,7 @@ filepath = "/mnt/picam"
 filenamePrefix = "capture"
 # File photo size settings
 saveWidth = 1920  # 2592 max but not available yet
-saveHeight = 1080  # 1944 max but not available yet
+saveHeight = 1440  # 1944 max but not available yet
 diskSpaceToReserve = 40 * 1024 * 1024  # Keep 40 mb free on disk
 
 # email settings
